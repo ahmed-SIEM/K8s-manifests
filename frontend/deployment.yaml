@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ahmedsouid1/frontend-app:latest
+          image: ahmedsouid1/frontend-app:161ca7b4afdd6b6a84f0e0d9e0003a44c5d084e8
           ports:
             - containerPort: 80
           readinessProbe:
