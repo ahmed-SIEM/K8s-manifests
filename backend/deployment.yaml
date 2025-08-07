@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ahmedsouid1/springback:3f2ad103bbbe670cdcc19051d9e2c1bf7108629a
+          image: ahmedsouid1/springback:9184be2ac69103810d9a799bb3bbb6c348fda375
           imagePullPolicy: Always
           ports:
             - containerPort: 8089
