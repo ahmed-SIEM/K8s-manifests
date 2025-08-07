@@ -18,10 +18,30 @@ spec:
           image: ahmedsouid1/springback:3f2ad103bbbe670cdcc19051d9e2c1bf7108629a
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 8089
           env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-service:3306/springdb
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
             - name: SPRING_PROFILES_ACTIVE
               value: dev
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8089
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
           resources:
             limits:
               cpu: "500m"
@@ -29,12 +49,4 @@ spec:
             requests:
               cpu: "250m"
               memory: "256Mi"
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
 
